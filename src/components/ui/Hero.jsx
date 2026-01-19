@@ -1,0 +1,72 @@
+import React from 'react'
+import { motion } from 'framer-motion'
+import { useStore } from '../../store/useStore'
+
+export default function Hero() {
+  const { language } = useStore()
+  return (
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-50"
+        >
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-pouring-chocolate-on-a-cake-4347-large.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+      </div>
+
+      <div className="relative z-10 text-center px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-6xl md:text-8xl font-black mb-6 tracking-tighter"
+        >
+          {language === 'EN' ? (
+            <>ART YOU CAN <span className="text-primary italic">TASTE</span></>
+          ) : (
+            <>শিল্প যা আপনি <span className="text-primary italic">আস্বাদন</span> করতে পারেন</>
+          )}
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-xl md:text-2xl text-neutral-400 max-w-2xl mx-auto mb-10 font-light"
+        >
+          {language === 'EN'
+            ? "Luxury artisanal cakes handcrafted in Bangladesh. Where every layer tells a story of elegance and flavor."
+            : "বাংলাদেশে হাতে তৈরি বিলাসবহুল কারুকার্যময় কেক। যেখানে প্রতিটি স্তর কমনীয়তা এবং স্বাদের গল্প বলে।"}
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <a
+            href="#configurator"
+            className="px-8 py-4 bg-primary text-black font-bold rounded-none hover:bg-white transition-colors duration-300 uppercase tracking-widest"
+          >
+            {language === 'EN' ? 'Start Creating' : 'তৈরি করা শুরু করুন'}
+          </a>
+          <button
+            className="px-8 py-4 border border-white/20 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300 uppercase tracking-widest"
+          >
+            {language === 'EN' ? 'View Collection' : 'কালেকশন দেখুন'}
+          </button>
+        </motion.div>
+      </div>
+
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center pt-2">
+          <div className="w-1 h-2 bg-primary rounded-full" />
+        </div>
+      </div>
+    </section>
+  )
+}

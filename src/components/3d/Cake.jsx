@@ -1,0 +1,75 @@
+import React, { useRef } from 'react'
+import { useStore } from '../../store/useStore'
+import { MeshPhysicalMaterial } from 'three'
+
+export default function Cake() {
+  const { cakeConfig } = useStore()
+  const { layers, baseColor, frosting, topper, fillColor } = cakeConfig
+
+  const materialProps = frosting === 'glossy' ? {
+    roughness: 0.1,
+    metalness: 0.2,
+    clearcoat: 1,
+    clearcoatRoughness: 0.1,
+  } : frosting === 'mirror' ? {
+    roughness: 0.01,
+    metalness: 0.8,
+    envMapIntensity: 2,
+  } : {
+    roughness: 0.8,
+    metalness: 0,
+    thickness: 2, // Sub-surface scattering simulation
+    transmission: 0.1,
+  }
+
+  return (
+    <group>
+      {[...Array(layers)].map((_, i) => (
+        <group key={i} position={[0, i * 0.6 - (layers * 0.3), 0]}>
+          {/* Main Layer */}
+          <mesh castShadow receiveShadow>
+            <cylinderGeometry args={[1 - i * 0.1, 1 - i * 0.1, 0.5, 64]} />
+            <meshPhysicalMaterial color={baseColor} {...materialProps} />
+          </mesh>
+
+          {/* Filling/Cream between layers */}
+          {i < layers - 1 && (
+            <mesh position={[0, 0.3, 0]}>
+              <cylinderGeometry args={[0.95 - i * 0.1, 0.95 - i * 0.1, 0.1, 64]} />
+              <meshStandardMaterial color={fillColor} roughness={0.3} />
+            </mesh>
+          )}
+
+          {/* Drip Effect for glossy/mirror finish on top layer */}
+          {i === layers - 1 && frosting !== 'matte' && (
+            <mesh position={[0, 0.26, 0]}>
+              <cylinderGeometry args={[1.01 - i * 0.1, 1.01 - i * 0.1, 0.05, 64]} />
+              <meshPhysicalMaterial color={baseColor} {...materialProps} />
+            </mesh>
+          )}
+        </group>
+      ))}
+
+      {/* Topper */}
+      {topper === 'heart' && (
+        <mesh position={[0, layers * 0.3 + 0.2, 0]} castShadow>
+          <torusGeometry args={[0.2, 0.05, 16, 32]} />
+          <meshStandardMaterial color="gold" metalness={1} roughness={0.1} />
+        </mesh>
+      )}
+
+      {topper === 'star' && (
+        <mesh position={[0, layers * 0.3 + 0.2, 0]} castShadow>
+          <octahedronGeometry args={[0.2, 0]} />
+          <meshStandardMaterial color="gold" metalness={1} roughness={0.1} />
+        </mesh>
+      )}
+
+      {/* Base/Tray */}
+      <mesh position={[0, -layers * 0.3 - 0.3, 0]} receiveShadow>
+        <cylinderGeometry args={[1.5, 1.6, 0.1, 64]} />
+        <meshStandardMaterial color="#222" metalness={0.9} roughness={0.1} />
+      </mesh>
+    </group>
+  )
+}
