@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../store/useStore'
-import Hls from 'hls.js'
 import { ShieldCheck, Truck } from 'lucide-react'
 
 export default function Hero() {
@@ -11,13 +10,19 @@ export default function Hero() {
 
   useEffect(() => {
     if (videoRef.current) {
-      if (Hls.isSupported()) {
-        const hls = new Hls()
-        hls.loadSource(hlsSource)
-        hls.attachMedia(videoRef.current)
-      } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
-        videoRef.current.src = hlsSource
+      const loadVideo = async () => {
+        if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
+          videoRef.current.src = hlsSource
+        } else {
+          const { default: Hls } = await import('hls.js')
+          if (Hls.isSupported()) {
+            const hls = new Hls()
+            hls.loadSource(hlsSource)
+            hls.attachMedia(videoRef.current)
+          }
+        }
       }
+      loadVideo()
     }
   }, [])
 
@@ -43,7 +48,7 @@ export default function Hero() {
           className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full"
         >
           <ShieldCheck className="text-primary w-5 h-5" />
-          <span className="text-[10px] uppercase tracking-widest font-bold">BFSA Certified / বিএফএসএ অনুমোদিত</span>
+          <span className="text-xxs uppercase tracking-widest font-bold">BFSA Certified / বিএফএসএ অনুমোদিত</span>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -53,8 +58,8 @@ export default function Hero() {
         >
           <Truck className="text-primary w-5 h-5" />
           <div className="flex flex-col">
-            <span className="text-[8px] uppercase tracking-tighter text-neutral-400">Delivery Timeline</span>
-            <span className="text-[9px] font-bold uppercase tracking-widest">5D Local / 10D Inter-city</span>
+            <span className="text-micro uppercase tracking-tighter text-neutral-400">Delivery Timeline</span>
+            <span className="text-tiny font-bold uppercase tracking-widest">5D Local / 10D Inter-city</span>
           </div>
         </motion.div>
       </div>
@@ -64,7 +69,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-6xl md:text-8xl font-black mb-6 tracking-tighter"
+          className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tighter"
         >
           {language === 'EN' ? (
             <>ART YOU CAN <span className="text-primary italic">TASTE</span></>

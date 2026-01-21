@@ -40,19 +40,19 @@ export default function Footer() {
             </h4>
             <ul className="space-y-4 text-sm text-neutral-500">
               <li className="flex flex-col">
-                <span className="text-[10px] text-neutral-600">Trade License</span>
+                <span className="text-xxs text-neutral-600">Trade License</span>
                 <span>2024-SC-10293</span>
               </li>
               <li className="flex flex-col">
-                <span className="text-[10px] text-neutral-600">E-TIN / UBIN</span>
+                <span className="text-xxs text-neutral-600">E-TIN / UBIN</span>
                 <span>4582-9012-3345 / 00234</span>
               </li>
               <li className="flex flex-col">
-                <span className="text-[10px] text-neutral-600">VAT Registration</span>
+                <span className="text-xxs text-neutral-600">VAT Registration</span>
                 <span>000239485-0203</span>
               </li>
               <li className="flex flex-col">
-                <span className="text-[10px] text-neutral-600">BFSA Certification</span>
+                <span className="text-xxs text-neutral-600">BFSA Certification</span>
                 <span>BFSA-DHK-2024-88</span>
               </li>
             </ul>
