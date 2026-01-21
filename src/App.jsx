@@ -1,12 +1,13 @@
 import React, { Suspense, lazy } from 'react'
 const Scene = lazy(() => import('./components/3d/Scene'))
+const Features = lazy(() => import('./components/ui/Features'))
+const Analytics = lazy(() => import('./components/ui/Analytics'))
+const Partners = lazy(() => import('./components/ui/Partners'))
+const Footer = lazy(() => import('./components/ui/Footer'))
+
 import Navbar from './components/ui/Navbar'
 import Hero from './components/ui/Hero'
 import Configurator from './components/ui/Configurator'
-import Features from './components/ui/Features'
-import Analytics from './components/ui/Analytics'
-import Partners from './components/ui/Partners'
-import Footer from './components/ui/Footer'
 
 function App() {
   return (
@@ -25,12 +26,16 @@ function App() {
           <Configurator />
         </section>
 
-        <Features />
-        <Analytics />
-        <Partners />
+        <Suspense fallback={<div className="h-20" />}>
+          <Features />
+          <Analytics />
+          <Partners />
+        </Suspense>
       </main>
 
-      <Footer />
+      <Suspense fallback={<div className="h-20" />}>
+        <Footer />
+      </Suspense>
     </div>
   )
 }

@@ -57,7 +57,7 @@ export default function Analytics() {
 
           <div className="relative h-64 flex items-center justify-center">
             {/* Center Node */}
-            <div className="z-10 bg-primary p-6 rounded-2xl shadow-[0_0_50px_rgba(212,175,55,0.3)]">
+            <div className="z-10 bg-primary p-6 rounded-2xl shadow-glow-primary">
               <BarChart3 className="text-black w-8 h-8" />
             </div>
 
@@ -84,7 +84,7 @@ export default function Analytics() {
                 <div className="relative w-full h-full">
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 bg-neutral-800 border border-white/10 rounded-xl pointer-events-auto flex flex-col items-center gap-2">
                     <div className="text-primary">{node.icon}</div>
-                    <span className="text-[10px] uppercase font-bold tracking-tighter">{node.label}</span>
+                    <span className="text-xxs uppercase font-bold tracking-tighter">{node.label}</span>
                   </div>
                 </div>
               </motion.div>

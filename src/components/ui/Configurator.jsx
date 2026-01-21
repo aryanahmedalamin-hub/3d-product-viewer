@@ -34,11 +34,11 @@ export default function Configurator() {
   ]
 
   return (
-    <div className="absolute top-20 right-4 bottom-4 w-full max-w-sm pointer-events-none flex flex-col gap-4 p-4">
+    <div className="absolute top-20 right-0 md:right-4 bottom-0 md:bottom-4 w-full max-w-full md:max-w-sm pointer-events-none flex flex-col gap-4 p-0 md:p-4">
       <motion.div
-        initial={{ x: 100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        className="pointer-events-auto bg-black/80 backdrop-blur-xl border border-white/10 p-6 rounded-2xl shadow-2xl"
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="pointer-events-auto bg-black/90 md:bg-black/80 backdrop-blur-xl border-t md:border border-white/10 p-6 rounded-t-3xl md:rounded-2xl shadow-2xl h-[60vh] md:h-auto overflow-y-auto"
       >
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
           <span className="w-2 h-8 bg-primary block" />

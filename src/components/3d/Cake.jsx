@@ -43,6 +43,22 @@ export default function Cake() {
             <meshPhysicalMaterial color={baseColor} {...materialProps} />
           </mesh>
 
+          {/* Decorative Cream Piping on edges */}
+          {[...Array(12)].map((_, j) => (
+            <mesh
+              key={j}
+              position={[
+                Math.cos((j / 12) * Math.PI * 2) * (1 - i * 0.1),
+                0.25,
+                Math.sin((j / 12) * Math.PI * 2) * (1 - i * 0.1)
+              ]}
+              castShadow
+            >
+              <sphereGeometry args={[0.08, 16, 16]} />
+              <meshStandardMaterial color={fillColor} roughness={0.3} />
+            </mesh>
+          ))}
+
           {/* Filling/Cream between layers */}
           {i < layers - 1 && (
             <mesh position={[0, 0.3, 0]}>
